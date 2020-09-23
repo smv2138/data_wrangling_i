@@ -43,7 +43,7 @@ pulse_data_tidy =
 ```
 
 Put everuthing into a single code chuck Rewrite, combine and extend (add
-mutate step)
+mutate step) “recode” exisits in dplyr to modify variables
 
 ``` r
 pulse_data = 
@@ -54,5 +54,7 @@ pulse_data =
     names_to = "visit",
     names_prefix = "bdi_score_",
     values_to = "bdi"
-  )
+  ) %>% 
+  relocate(id, visit) %>%
+  mutate(visit = recode(visit, "bl" = "00m"))
 ```
