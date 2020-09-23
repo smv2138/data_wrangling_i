@@ -228,3 +228,11 @@ litters_readr = read_csv("./data/FAS_litters.csv")
     ## )
 
 Printed differences\! USE “read\_csv”\!\!\!
+
+## Exporting data
+
+Export the mlb sub-table.
+
+``` r
+write_csv(mlb_df, "./data/mlb_subtable.csv")
+```
