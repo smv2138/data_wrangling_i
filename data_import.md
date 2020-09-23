@@ -204,3 +204,27 @@ Read in a SAS file
 ``` r
 pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
 ```
+
+## Comparison with Base R
+
+What about “read.csv” –\> This is built into R but Jeff would recomment
+we use “read\_csv”
+
+``` r
+litters_base = read.csv("./data/FAS_litters.csv")
+litters_readr = read_csv("./data/FAS_litters.csv")
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   Group = col_character(),
+    ##   `Litter Number` = col_character(),
+    ##   `GD0 weight` = col_double(),
+    ##   `GD18 weight` = col_double(),
+    ##   `GD of Birth` = col_double(),
+    ##   `Pups born alive` = col_double(),
+    ##   `Pups dead @ birth` = col_double(),
+    ##   `Pups survive` = col_double()
+    ## )
+
+Printed differences\! USE “read\_csv”\!\!\!
