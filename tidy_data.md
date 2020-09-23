@@ -15,3 +15,44 @@ library(tidyverse)
     ## -- Conflicts --------------------------------------- tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
+
+## ‘pivot\_longer’
+
+Load the pulse data (sas format)
+
+``` r
+pulse_data = 
+  haven::read_sas("./data/public_pulse_data.sas7bdat") %>% 
+  janitor::clean_names()
+```
+
+Wide to long format tell which columns need to be made wider in
+pivot\_longer function Those column names need to be put into another
+variable (“names\_to”) Values to into (“values\_to”) bdi use
+“name\_prefix” to remove the prefix of bdi\_score
+
+``` r
+pulse_data_tidy = 
+  pulse_data %>% 
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    names_prefix = "bdi_score_",
+    values_to = "bdi"
+  )
+```
+
+Put everuthing into a single code chuck Rewrite, combine and extend (add
+mutate step)
+
+``` r
+pulse_data = 
+  haven::read_sas("./data/public_pulse_data.sas7bdat") %>% 
+  janitor::clean_names() %>% 
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    names_prefix = "bdi_score_",
+    values_to = "bdi"
+  )
+```

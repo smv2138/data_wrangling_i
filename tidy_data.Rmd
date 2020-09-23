@@ -6,3 +6,46 @@ output: github_document
 ```{r setup}
 library(tidyverse)
 ```
+
+
+## 'pivot_longer'
+
+Load the pulse data (sas format)
+
+```{r}
+pulse_data = 
+  haven::read_sas("./data/public_pulse_data.sas7bdat") %>% 
+  janitor::clean_names()
+```
+
+Wide to long format
+tell which columns need to be made wider in pivot_longer function
+Those column names need to be put into another variable ("names_to")
+Values to into ("values_to") bdi
+use "name_prefix" to remove the prefix of bdi_score
+```{r}
+pulse_data_tidy = 
+  pulse_data %>% 
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    names_prefix = "bdi_score_",
+    values_to = "bdi"
+  )
+```
+
+Put everuthing into a single code chuck
+Rewrite, combine and extend (add mutate step)
+
+```{r}
+pulse_data = 
+  haven::read_sas("./data/public_pulse_data.sas7bdat") %>% 
+  janitor::clean_names() %>% 
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    names_prefix = "bdi_score_",
+    values_to = "bdi"
+  )
+  
+```
