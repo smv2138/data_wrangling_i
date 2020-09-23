@@ -44,3 +44,17 @@ skimr::skim(litters_df)
 ```
 
 Use view(litter_df) in console to open up a new tab of the data set. Run this in the console because it makes knitting easier
+
+## Options to read_csv
+Check out "?read_csv" in console for more info
+If there are blank rows at the beginning of the file, can skip them
+Can also make R import values and desginate them as NA 
+```{r}
+litters_df = read_csv("./data/FAS_litters.csv", skip = 10, col_names = FALSE)
+litters_df = read_csv("./data/FAS_litters.csv", na = c("", "NA", ".", 999))
+
+```
+
+
+
+
