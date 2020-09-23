@@ -23,4 +23,24 @@ litters_df = janitor::clean_names(litters_df)
 
 ## Take a look at the data
 
+Printing in the console
+```{r}
+litters_df
+```
 
+Prints first 6 observations
+```{r}
+head(litters_df)
+```
+
+Print last 6 observations 
+```{r}
+tail(litters_df)
+```
+
+Some descriptive info
+```{r}
+skimr::skim(litters_df)
+```
+
+Use view(litter_df) in console to open up a new tab of the data set. Run this in the console because it makes knitting easier
