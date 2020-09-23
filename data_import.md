@@ -5,16 +5,21 @@ Data Import
 library(tidyverse)
 ```
 
-    ## -- Attaching packages -------------------------------------------- tidyverse 1.3.0 --
+    ## -- Attaching packages ------------------------------------ tidyverse 1.3.0 --
 
     ## v ggplot2 3.3.2     v purrr   0.3.4
     ## v tibble  3.0.3     v dplyr   1.0.2
     ## v tidyr   1.1.2     v stringr 1.4.0
     ## v readr   1.3.1     v forcats 0.5.0
 
-    ## -- Conflicts ----------------------------------------------- tidyverse_conflicts() --
+    ## -- Conflicts --------------------------------------- tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
+
+``` r
+library(readxl)
+library(haven)
+```
 
 ## Read in some data
 
@@ -184,3 +189,18 @@ litters_df = read_csv("./data/FAS_litters.csv", na = c("", "NA", ".", 999))
     ##   `Pups dead @ birth` = col_double(),
     ##   `Pups survive` = col_double()
     ## )
+
+## Other file formats
+
+Read in an EXCEL file Look at “?read\_excel” in console for more info
+
+``` r
+mlb_df = read_excel("./data/mlb11.xlsx")
+mlb_df = read_excel("./data/mlb11.xlsx", range = "A1:F7")
+```
+
+Read in a SAS file
+
+``` r
+pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
+```
