@@ -55,3 +55,45 @@ does the same thing as above, moves columns to the front
 relocate(litters_df, litter_number)
 ```
 
+## ' filter'
+
+Removes or keeps rows that you're interested in retaining for select analyses
+Need to give it a variable and a condition so it knows what to do 
+
+```{r}
+filter(litters_df, gd0_weight < 22)
+```
+
+```{r}
+filter(litters_df, gd0_weight >= 22)
+```
+
+== test for equality
+```{r}
+filter(litters_df, gd_of_birth == 20)
+```
+
+negate things --> gd_of_birth when it is NOT equal to 20
+```{r}
+filter(litters_df, !(gd_of_birth == 20))
+```
+
+2 conditions
+```{r}
+filter(litters_df, gd0_weight >= 22, gd_of_birth == 20)
+```
+
+Character variables 
+```{r}
+filter(litters_df, group == "Mod8")
+```
+
+2 conditions of characters (either of these 2 options)
+```{r}
+filter(litters_df, group %in% c("Con7", "Mod8"))
+```
+
+
+
+
+
