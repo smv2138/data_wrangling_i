@@ -120,3 +120,61 @@ lotr_tidy =
     values_to = "words"
   )
 ```
+
+## Joining Datasets
+
+Import the FAS datasets
+
+Get info from litters dataset into the pups dataset (litter number is
+the variable that exisits in both df)
+
+Litters DF: Treatment group and treatment day are in the same variable
+(group), so we want to separate them (split them by the number of
+characters)
+
+``` r
+pup_df = 
+  read_csv("./data/FAS_pups.csv") %>% 
+  janitor::clean_names() %>%
+  mutate(sex = recode(sex, `1` = "male", `2` = "female"))
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   `Litter Number` = col_character(),
+    ##   Sex = col_double(),
+    ##   `PD ears` = col_double(),
+    ##   `PD eyes` = col_double(),
+    ##   `PD pivot` = col_double(),
+    ##   `PD walk` = col_double()
+    ## )
+
+``` r
+litters_df = 
+  read_csv("./data/FAS_litters.csv") %>% 
+  janitor::clean_names() %>%
+  relocate(litter_number) %>%
+  separate(group, into = c("dose", "day_of_tx"), sep = 3)
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   Group = col_character(),
+    ##   `Litter Number` = col_character(),
+    ##   `GD0 weight` = col_double(),
+    ##   `GD18 weight` = col_double(),
+    ##   `GD of Birth` = col_double(),
+    ##   `Pups born alive` = col_double(),
+    ##   `Pups dead @ birth` = col_double(),
+    ##   `Pups survive` = col_double()
+    ## )
+
+Now we join them (doing a left join) Merch liters data into the pups
+data (pups data is left and liters data is right) Join by litter number
+
+``` r
+fas_df =
+  left_join(pup_df, litters_df, by = "litter_number") %>% 
+  arrange(litter_number) %>% 
+  relocate(litter_number, dose, day_of_tx)
+```

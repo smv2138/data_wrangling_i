@@ -108,3 +108,38 @@ lotr_tidy =
   )
 ```
 
+## Joining Datasets
+
+Import the FAS datasets
+
+Get info from litters dataset into the pups dataset (litter number is the variable that exisits in both df)
+
+Litters DF: Treatment group and treatment day are in the same variable (group), so we want to separate them (split them by the number of characters)
+
+```{r}
+pup_df = 
+  read_csv("./data/FAS_pups.csv") %>% 
+  janitor::clean_names() %>%
+  mutate(sex = recode(sex, `1` = "male", `2` = "female"))
+
+litters_df = 
+  read_csv("./data/FAS_litters.csv") %>% 
+  janitor::clean_names() %>%
+  relocate(litter_number) %>%
+  separate(group, into = c("dose", "day_of_tx"), sep = 3)
+```
+
+Now we join them (doing a left join)
+Merch liters data into the pups data (pups data is left and liters data is right)
+Join by litter number
+```{r}
+fas_df =
+  left_join(pup_df, litters_df, by = "litter_number") %>% 
+  arrange(litter_number) %>% 
+  relocate(litter_number, dose, day_of_tx)
+  
+```
+
+
+
+
